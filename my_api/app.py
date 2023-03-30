@@ -1,9 +1,13 @@
-from flask import Flask
+from flask import Flask ,redirect
 import motor.motor_asyncio
 
 
 app = Flask(__name__)
 
+
+@app.route('/')
+def index():
+    return redirect('/my_api')
 
 
 @app.route('/my_api')
@@ -24,9 +28,6 @@ async def myfnc(user):
     db = client.get_database("my_api")
     coll = db.get_collection('ist')
     await coll.insert_one(user)
-
-import tracemalloc
-tracemalloc.start()
   
 
 if __name__ == '__main__':
